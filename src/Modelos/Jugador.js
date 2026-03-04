@@ -4,15 +4,28 @@ class Jugador extends Modelo{
         this.vx = 0;//velocidad x
         this.vy = 0;//velocidad y
         this.velocity = 3.0;
+        this.cadenciaDisparo = 15;
+        this.tiempoDisparo = 0;
     }
     actualizar(){
         this.x = this.x + this.vx * this.velocity;
         this.y = this.y + this.vy * this.velocity;
+        if(this.tiempoDisparo > 0){
+            this.tiempoDisparo --;
+        }
     }
     moverX(direccion){
         this.vx = direccion;
     }
     moverY(direccion){
         this.vy = direccion;
+    }
+    disparar(){
+        if(this.tiempoDisparo == 0){
+            this.tiempoDisparo = this.cadenciaDisparo;
+            return new disparo_jugador(this.x + 33,this.y);
+        }else{
+            return null;
+        }
     }
 }

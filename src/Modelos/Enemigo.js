@@ -6,9 +6,8 @@ class Enemigo extends Modelo {
         this.velocity = 1.0;
     };
     actualizar(){
-        if(this.x + this.ancho / 2 >= 480 || this.x - this.ancho / 2 <= 0){
-            this.vx = this.vx * -1
-        }
+        /*  if(this.x + this.ancho / 2 >= 480 || this.x - this.ancho / 2 <= 0){
+                this.vx = this.vx * -1;  */
         this.x = this.x + this.vx * this.velocity;
     }
 };
