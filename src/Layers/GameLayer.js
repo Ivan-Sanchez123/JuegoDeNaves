@@ -10,6 +10,8 @@ class GameLayer extends Layer {
         this.enemigos = [];
         this.enemigos.push(new Enemigo(300,50));
         this.enemigos.push(new Enemigo(350, 200));
+        this.contador_ovnis = 0;
+        this.gameover = false;
     }
     actualizar(){
         if(this.enemigosCreacion == null){
@@ -31,7 +33,14 @@ class GameLayer extends Layer {
         for(let index = 0; index < this.enemigos.length; index++){
             if(this.enemigos[index].x < -50){
                 this.enemigos.splice(index,1);
+                this.contador_ovnis++;
                 console.log("OVNI eliminado");
+                if(this.contador_ovnis >= 5){
+                    console.log("el if va bien");
+                    this.fondo.cambiarFondo(imagenes.game_over);
+                    this.gameover = true;
+                    this.contador_ovnis = 0;
+                }
             }
         }
         this.jugador.actualizar();
@@ -50,7 +59,7 @@ class GameLayer extends Layer {
         for(let index = 0; index < this.enemigos.length;index++){
             for(let index2 = 0; index2 < this.disparosJugador.length;index2++){
                 if(this.enemigos[index].colisiona(this.disparosJugador[index2])){
-                    console.log(this.enemigos[index].colisiona(this.disparosJugador[index2]));
+                    //console.log(this.enemigos[index].colisiona(this.disparosJugador[index2]));
                     this.enemigos.splice(index,1);
                     this.disparosJugador.splice(index2,1);
                     index --;
@@ -61,12 +70,14 @@ class GameLayer extends Layer {
     }
     dibujar(){
         this.fondo.dibujar();
-        this.jugador.dibujar();
-        for(let index = 0; index < this.enemigos.length; index++){
-            this.enemigos[index].dibujar();
-        }
-        for(let index = 0; index < this.disparosJugador.length;index++){
-            this.disparosJugador[index].dibujar();
+        if(!this.gameover){
+            this.jugador.dibujar();
+            for(let index = 0; index < this.enemigos.length; index++){
+                this.enemigos[index].dibujar();
+            }
+            for(let index = 0; index < this.disparosJugador.length;index++){
+                this.disparosJugador[index].dibujar();
+            }
         }
     }
     procesarControles(){
@@ -81,11 +92,11 @@ class GameLayer extends Layer {
         
         //eje x
         if(controles.moverX > 0){
-            console.log("mover derecha");
+            //console.log("mover derecha");
             this.jugador.moverX(1);
         }
         else if(controles.moverX < 0){
-            console.log("mover izquierda");
+            //console.log("mover izquierda");
             this.jugador.moverX(-1);
         }
         else{
@@ -94,11 +105,11 @@ class GameLayer extends Layer {
 
         //eje y
         if(controles.moverY > 0){
-            console.log("mover arriba");
+            //console.log("mover arriba");
             this.jugador.moverY(-1);
         }
         else if(controles.moverY < 0){
-            console.log("mover abajo");
+            //console.log("mover abajo");
             this.jugador.moverY(1);
         }else{
             this.jugador.moverY(0);
@@ -106,7 +117,7 @@ class GameLayer extends Layer {
     }
     generarAleatorioAltoPantalla(){
         let random = Math.random();
-        let numeroGenerado = window.innerHeight * random;
+        let numeroGenerado = 308 * random;
         console.log(numeroGenerado);
         return numeroGenerado;
     }

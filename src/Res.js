@@ -8,6 +8,7 @@ var imagenes = {
     disparo_jugador: "res/disparo_jugador.png",
     disparo_enemigo: "res/disparo_enemigo.png",
     icono_puntos: "res/icono_puntos.png",
+    game_over: "res/game_over.jpg",
 };
 var rutasImagenes = Object.values(imagenes);
 cargarImagenes(0);

@@ -13,6 +13,9 @@ class Jugador extends Modelo{
         if(this.tiempoDisparo > 0){
             this.tiempoDisparo --;
         }
+        /*console.log("Posicion en x de la nave = " + this.x);
+        console.log("Posicion en y de la nave = " + this.y);
+        */
     }
     moverX(direccion){
         this.vx = direccion;

@@ -9,6 +9,11 @@ function onKeyDown(event){
             case 32:
                 //tecla espaciadora
                 controles.disparo = true;
+                if(gameLayer.gameover){
+                    gameLayer.gameover = false;
+                    gameLayer.fondo.cambiarFondo(imagenes.fondo);
+                    gameLayer.iniciar();
+                }
                 break;
             case 37:
                 //flecha izq

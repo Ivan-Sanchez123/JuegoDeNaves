@@ -19,7 +19,7 @@ function iniciarJuego(){
 };
 
 function loop(){
-    console.log("loop -");
+    //console.log("loop -");
     gameLayer.actualizar();
     gameLayer.procesarControles();
     gameLayer.dibujar();
@@ -27,7 +27,7 @@ function loop(){
 
 window.addEventListener("load", resize, false);
 function resize(){
-    console.log("resize");
+    //console.log("resize");
     var escaladoAncho = parseFloat(window.innerWidth / canvas.width);
     var escaladoAlto = parseFloat(window.innerHeight / canvas.height);
     escaladoMinimo = Math.min(escaladoAncho, escaladoAlto);
