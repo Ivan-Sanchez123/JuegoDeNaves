@@ -3,8 +3,8 @@ class Jugador extends Modelo{
         super(imagenes.jugador , x, y);
         this.vx = 0;//velocidad x
         this.vy = 0;//velocidad y
-        this.velocity = 3.0;
-        this.cadenciaDisparo = 15;
+        this.velocity = 5.0;
+        this.cadenciaDisparo = 10;
         this.tiempoDisparo = 0;
     }
     actualizar(){

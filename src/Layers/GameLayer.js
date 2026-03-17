@@ -4,14 +4,20 @@ class GameLayer extends Layer {
         this.iniciar();
     }
     iniciar(){
+        //this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.15,320*0.03);
+        this.puntos = new Texto(0, 480*0.9, 320*0.07);
         this.jugador = new Jugador(50,50);
         this.fondo = new Fondo(imagenes.fondo, 480*0.5, 320*0.5);
         this.disparosJugador = [];
         this.enemigos = [];
+        this.estrellas = [];
         this.enemigos.push(new Enemigo(300,50));
         this.enemigos.push(new Enemigo(350, 200));
         this.contador_ovnis = 0;
         this.gameover = false;
+        this.ovnis_matados = 0;
+        this.ovnis20 = 0;
+        this.posicion = [480*0.15, 320*0.07];
     }
     actualizar(){
         if(this.enemigosCreacion == null){
@@ -50,7 +56,9 @@ class GameLayer extends Layer {
         }
         for(let index = 0; index < this.enemigos.length; index++){
             if(this.jugador.colisiona(this.enemigos[index])){
-                this.iniciar();
+                this.fondo.cambiarFondo(imagenes.game_over);
+                this.gameover = true;
+                this.contador_ovnis = 0;
             }
         }
         for(let index = 0; index < this.disparosJugador.length;index++){
@@ -60,7 +68,16 @@ class GameLayer extends Layer {
             for(let index2 = 0; index2 < this.disparosJugador.length;index2++){
                 if(this.enemigos[index].colisiona(this.disparosJugador[index2])){
                     //console.log(this.enemigos[index].colisiona(this.disparosJugador[index2]));
+                    this.ovnis_matados++;
+                    this.ovnis20++;
+                    this.puntos.valor = this.ovnis_matados;
                     this.enemigos.splice(index,1);
+                    if(this.ovnis20 == 20){
+                        this.estrellas.push(new Fondo(imagenes.icono_puntos, this.posicion[0], this.posicion[1]));
+                        this.posicion[0] += 480 * 0.05;
+                        this.ovnis20 = 0;
+                    }
+                    
                     this.disparosJugador.splice(index2,1);
                     index --;
                     index2 --;
@@ -77,6 +94,10 @@ class GameLayer extends Layer {
             }
             for(let index = 0; index < this.disparosJugador.length;index++){
                 this.disparosJugador[index].dibujar();
+            }
+            this.puntos.dibujar();
+            for(let index = 0; index < this.estrellas.length; index++){
+                this.estrellas[index].dibujar();
             }
         }
     }
