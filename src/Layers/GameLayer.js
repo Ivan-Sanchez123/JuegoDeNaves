@@ -5,6 +5,7 @@ class GameLayer extends Layer {
     }
     iniciar(){
         //this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.15,320*0.03);
+        reproducirMusica();
         this.puntos = new Texto(0, 480*0.9, 320*0.07);
         this.jugador = new Jugador(50,50);
         this.fondo = new Fondo(imagenes.fondo, 480*0.5, 320*0.5);
@@ -33,16 +34,16 @@ class GameLayer extends Layer {
         for(let index = 0; index < this.disparosJugador.length; index++){
             if(this.disparosJugador[index].x > 500){
                 this.disparosJugador.splice(index,1);
-                console.log("Disparo eliminado");
+                //console.log("Disparo eliminado");
             }
         }
         for(let index = 0; index < this.enemigos.length; index++){
             if(this.enemigos[index].x < -50){
                 this.enemigos.splice(index,1);
                 this.contador_ovnis++;
-                console.log("OVNI eliminado");
+                //console.log("OVNI eliminado");
                 if(this.contador_ovnis >= 5){
-                    console.log("el if va bien");
+                    //console.log("el if va bien");
                     this.fondo.cambiarFondo(imagenes.game_over);
                     this.gameover = true;
                     this.contador_ovnis = 0;
@@ -54,11 +55,15 @@ class GameLayer extends Layer {
         for(let index = 0; index < this.enemigos.length;index++){
             this.enemigos[index].actualizar();
         }
-        for(let index = 0; index < this.enemigos.length; index++){
-            if(this.jugador.colisiona(this.enemigos[index])){
-                this.fondo.cambiarFondo(imagenes.game_over);
-                this.gameover = true;
-                this.contador_ovnis = 0;
+        if (!this.gameover){
+            for(let index = 0; index < this.enemigos.length; index++){
+                if(this.jugador.colisiona(this.enemigos[index])){
+                    this.fondo.cambiarFondo(imagenes.game_over);
+                    this.gameover = true;
+                    pararMusica();
+                    reproducirEfecto(efectos.gameover);
+                    this.contador_ovnis = 0;
+                }
             }
         }
         for(let index = 0; index < this.disparosJugador.length;index++){
@@ -69,6 +74,7 @@ class GameLayer extends Layer {
                 if(this.enemigos[index].colisiona(this.disparosJugador[index2])){
                     //console.log(this.enemigos[index].colisiona(this.disparosJugador[index2]));
                     this.ovnis_matados++;
+                    reproducirEfecto(efectos.explosion);
                     this.ovnis20++;
                     this.puntos.valor = this.ovnis_matados;
                     this.enemigos.splice(index,1);
