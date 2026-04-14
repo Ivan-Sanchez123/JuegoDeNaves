@@ -14,9 +14,30 @@
             display: block;
             margin: 0 auto;
         }
+        .customButton {
+            border:9.1px double #0F00FF;
+            border-radius:46.3px;
+            padding:20px;
+            margin:29.7px;
+            background-color:#F9F9F9;
+            color:#0F00FF;
+            font-weight:300;
+            opacity:1;
+            transition:0.5s;
+        }
+        .customButton:hover {
+            cursor:pointer; 
+            background-color:#F9F9F9;
+            opacity:0.7;
+            transition:0.5s;
+            color:#0F00FF;
+        }
     </style>
 </head>
 <body>
+    <div class="html_button btn-center">
+        <button type="button" onclick="iniciarJuego()" class="btn customButton x-large icon-before play">Play</button>
+    </div>
 
 <canvas id="canvas" width="480" height="320"></canvas>
 <script src="src/GestorAudio.js"></script>

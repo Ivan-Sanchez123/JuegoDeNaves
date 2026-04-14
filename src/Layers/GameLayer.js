@@ -12,6 +12,7 @@ class GameLayer extends Layer {
         this.disparosJugador = [];
         this.enemigos = [];
         this.estrellas = [];
+        this.fondo.vx = -1;
         this.enemigos.push(new Enemigo(300,50));
         this.enemigos.push(new Enemigo(350, 200));
         this.contador_ovnis = 0;
@@ -21,6 +22,7 @@ class GameLayer extends Layer {
         this.posicion = [480*0.15, 320*0.07];
     }
     actualizar(){
+        this.fondo.actualizar();
         if(this.enemigosCreacion == null){
             this.enemigosCreacion = 0;
         }
@@ -45,6 +47,9 @@ class GameLayer extends Layer {
                 if(this.contador_ovnis >= 5){
                     //console.log("el if va bien");
                     this.fondo.cambiarFondo(imagenes.game_over);
+                    this.fondo.vx = 0;
+                    this.fondo.fondoAux = null;
+                    this.fondo.x = this.fondo.ancho / 2;
                     this.gameover = true;
                     this.contador_ovnis = 0;
                 }
@@ -58,6 +63,9 @@ class GameLayer extends Layer {
         if (!this.gameover){
             for(let index = 0; index < this.enemigos.length; index++){
                 if(this.jugador.colisiona(this.enemigos[index])){
+                    this.fondo.vx = 0;
+                    this.fondo.fondoAux = null;
+                    this.fondo.x = this.fondo.ancho / 2;
                     this.fondo.cambiarFondo(imagenes.game_over);
                     this.gameover = true;
                     pararMusica();
