@@ -31,8 +31,6 @@ class Jugador extends Modelo{
                 this.animacion = this.aIdleDerecha;
             }else if(this.orientacion == orientaciones.izquierda){
                 this.animacion = this.aIdleIzquierda;
-            }else{
-                console.log("Algo va muy mal porque el else if va mal y lo has programado mal porque no sabes hacer juegos");
             }
         }
         
