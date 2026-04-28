@@ -153,7 +153,6 @@ class GameLayer extends Layer {
     generarAleatorioAltoPantalla(){
         let random = Math.random();
         let numeroGenerado = 308 * random;
-        console.log(numeroGenerado);
         return numeroGenerado;
     }
 }

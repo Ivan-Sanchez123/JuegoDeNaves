@@ -1,5 +1,5 @@
 class Animacion {
-    constructor(imagenSrc, modeloAncho, modeloAlto, velocidadRefresco, framesTotales){
+    constructor(imagenSrc, modeloAncho, modeloAlto, velocidadRefresco, framesTotales, callback){
         this.imagen = cache[imagenSrc];
         this.modeloAncho = modeloAncho;
         this.modeloAlto = modeloAlto;
@@ -19,18 +19,22 @@ class Animacion {
         this.rectanguloDibujo.alto = this.frameAlto;
 
         this.ultimaActualizacion = 0;
+        this.callback = callback;
     }
     actualizar(){
         this.ultimaActualizacion ++;
         if(this.ultimaActualizacion > this.velocidadRefresco){
             this.ultimaActualizacion = 0;
-            console.log(this.ultimaActualizacion);
             this.frameActual ++;
             if(this.frameActual >= this.framesTotales){
                 this.frameActual = 0;
+                if(this.callback != null){
+                    this.callback();
+                }
             }
         }
         this.rectanguloDibujo.x = this.frameActual * this.frameAncho;
+        
     }
 
     dibujar(x,y){ 

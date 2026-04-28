@@ -43,8 +43,8 @@ function cargarImagenes(i){
         if(i < rutasImagenes.length - 1){
             i++;
             cargarImagenes(i);
-        }/*else{
+        }else{
             iniciarJuego();
-        };*/
+        };
     };
 };
