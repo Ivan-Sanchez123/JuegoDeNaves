@@ -213,6 +213,7 @@ class GameLayer extends Layer {
                 var bloque = new Bloque(imagenes.bloque_tierra, x, y);
                 bloque.y = bloque.y - bloque.alto / 2;
                 this.bloques.push(bloque);
+                this.espacio.agregarCuerpoEstatico(this.bloque);
                 break;
             case "E":
                 var enemigo = new Enemigo(x,y);
