@@ -6,8 +6,9 @@ class Modelo{
         this.ancho = this.imagen.width;
         this.alto = this.imagen.height;
     }
-    dibujar(){
-        contexto.drawImage(this.imagen, this.x - this.ancho / 2, this.y - this.alto / 2)
+    dibujar(scrollX){
+        scrollX = scrollX || 0;
+        contexto.drawImage(this.imagen, this.x - this.ancho / 2 - scrollX, this.y - this.alto / 2);
     }
 
     colisiona(modelo){
@@ -26,8 +27,14 @@ class Modelo{
             && lado_izquierdo_este <= lado_derecho_otro
         ){
                 colisiona = true;
-                console.log("colision");
             }
             return colisiona;
+    }
+    estaEnPantalla(){
+        if((this.x - GameLayer.scrollX) - this.ancho / 2 <= 480 && (this.x - GameLayer.scrollX) - this.ancho / 2 >= 0 && this.y - this.alto / 2 <= 320 && this.y + this.alto / 2 >= 0){
+            return true;
+        }
+        
+        return false;
     }
 }

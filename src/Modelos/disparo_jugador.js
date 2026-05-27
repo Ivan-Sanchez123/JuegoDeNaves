@@ -4,6 +4,6 @@ class disparo_jugador extends Modelo{
         this.vx = 12;
     }
     actualizar(){
-        this.x = this.x + this.vx;
+        //this.x = this.x + this.vx;
     }
 }

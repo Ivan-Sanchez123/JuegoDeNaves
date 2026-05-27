@@ -9,7 +9,7 @@ var imagenes = {
     disparo_enemigo: "res/disparo_enemigo.png",
     icono_puntos: "res/icono_puntos.png",
     game_over: "res/game_over.jpg",
-    fondo2: "res/fondo_2.png",
+    fondo_2: "res/fondo_2.png",
     icono_vida: "res/icono_vida.png",
     jugador_idle_derecha: "res/jugador_idle_derecha.png",
     jugador_idle_izquierda: "res/jugador_idle_izquierda.png",

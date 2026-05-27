@@ -35,6 +35,6 @@ function resize(){
     canvas.width = canvas.width * escaladoMinimo;
     canvas.height = canvas.height * escaladoMinimo;
     contexto.scale(escaladoMinimo, escaladoMinimo);
-}
+};
 
 

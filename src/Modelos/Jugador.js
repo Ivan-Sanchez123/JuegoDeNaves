@@ -63,8 +63,8 @@ class Jugador extends Modelo{
                 break;
         }
         
-        this.x = this.x + this.vx * this.velocity;
-        this.y = this.y + this.vy * this.velocity;
+        //this.x = this.x + this.vx * this.velocity;
+        //this.y = this.y + this.vy * this.velocity;
         if(this.tiempoDisparo > 0){
             this.tiempoDisparo --;
         }
@@ -73,7 +73,11 @@ class Jugador extends Modelo{
         */
     }
     dibujar(){
-        this.animacion.dibujar(this.x, this.y);
+        this.animacion.dibujar(this.x - scrollX, this.y);
+    }
+    dibujar(scrollX){
+        scrollX = scrollX || 0;
+        this.animacion.dibujar(this.x - scrollX, this.y);
     }
     moverX(direccion){
         this.vx = direccion;

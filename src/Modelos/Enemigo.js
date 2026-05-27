@@ -22,13 +22,24 @@ class Enemigo extends Modelo {
         }
         /*  if(this.x + this.ancho / 2 >= 480 || this.x - this.ancho / 2 <= 0){
                 this.vx = this.vx * -1;  */
-        this.x = this.x + this.vx * this.velocity;
+        /*if(this.estado == estados.movimiento){
+            this.x = this.x + this.vx * this.velocity;
+        }*/
+    }
+    dibujar(scrollX){
+        scrollX = scrollX || 0;
+        this.animacion.dibujar(this.x - scrollX, this.y);
     }
     dibujar(){
         this.animacion.dibujar(this.x, this.y);
     }
     finAnimacionMorir(){
         this.estado = estados.muerto;
+    }
+    impactado(){
+        if(this.estado != estados.muriendo){
+            this.estado = estados.muriendo;
+        }
     }
     
 
