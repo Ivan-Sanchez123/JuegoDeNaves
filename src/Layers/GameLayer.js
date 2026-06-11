@@ -61,11 +61,11 @@ class GameLayer extends Layer {
                 //console.log("OVNI eliminado");
                 if(this.contador_ovnis >= 5){
                     //console.log("el if va bien");
-                    this.fondo.cambiarFondo(imagenes.game_over);
+                    //this.fondo.cambiarFondo(imagenes.game_over);
                     this.fondo.vx = 0;
                     this.fondo.fondoAux = null;
                     this.fondo.x = this.fondo.ancho / 2;
-                    this.gameover = true;
+                    //this.gameover = true;
                     this.contador_ovnis = 0;
                 }
             }
@@ -81,8 +81,8 @@ class GameLayer extends Layer {
                     this.fondo.vx = 0;
                     this.fondo.fondoAux = null;
                     this.fondo.x = this.fondo.ancho / 2;
-                    this.fondo.cambiarFondo(imagenes.game_over);
-                    this.gameover = true;
+                    //this.fondo.cambiarFondo(imagenes.game_over);
+                    //this.gameover = true;
                     pararMusica();
                     reproducirEfecto(efectos.gameover);
                     this.contador_ovnis = 0;
@@ -199,6 +199,7 @@ class GameLayer extends Layer {
                 }
             }
         }.bind(this);
+
         fichero.send(null);
         
     }
@@ -213,7 +214,7 @@ class GameLayer extends Layer {
                 var bloque = new Bloque(imagenes.bloque_tierra, x, y);
                 bloque.y = bloque.y - bloque.alto / 2;
                 this.bloques.push(bloque);
-                this.espacio.agregarCuerpoEstatico(this.bloque);
+                this.espacio.agregarCuerpoEstatico(bloque);
                 break;
             case "E":
                 var enemigo = new Enemigo(x,y);
