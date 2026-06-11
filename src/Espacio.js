@@ -31,6 +31,7 @@ class Espacio{
             if(this.dinamicos[i].vy > 20){
                 this.dinamicos[i].vy = 20;
             }
+            this.dinamicos[i].choqueAbajo = false;
             this.moverDerecha(i);
             this.moverIzquierda(i);
             this.moverArriba(i);

@@ -8,11 +8,11 @@ var efectos = {
 };
 
 function reproducirMusica(){
-    musicaAmbiente.play();
+    //musicaAmbiente.play();
 }
 
 function pararMusica(){
-    musicaAmbiente.stop();
+    //musicaAmbiente.stop();
 }
 
 function reproducirEfecto(srcEfecto){

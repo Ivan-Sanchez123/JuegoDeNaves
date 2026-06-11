@@ -7,7 +7,7 @@ class GameLayer extends Layer {
         //this.fondoPuntos = new Fondo(imagenes.icono_puntos, 480*0.15,320*0.03);
         reproducirMusica();
         this.scrollX = 0;
-        this.espacio = new Espacio(0);
+        this.espacio = new Espacio(1);
         this.bloques = [];
         this.puntos = new Texto(0, 480*0.9, 320*0.07);
         //this.jugador = new Jugador(50,50);
@@ -19,11 +19,13 @@ class GameLayer extends Layer {
         //this.enemigos.push(new Enemigo(300,50));
         //this.enemigos.push(new Enemigo(350, 200));
         this.contador_ovnis = 0;
-        this.gameover = false;
+        //this.gameover = false;
         this.ovnis_matados = 0;
         this.ovnis20 = 0;
         this.posicion = [480*0.15, 320*0.07];
         this.cargaMapa("res/0.txt");
+        console.log("juego iniciado")
+        this.en_el_suelo = true;
     }
     actualizar(){
         this.fondo.actualizar();
@@ -84,7 +86,7 @@ class GameLayer extends Layer {
                     //this.fondo.cambiarFondo(imagenes.game_over);
                     //this.gameover = true;
                     pararMusica();
-                    reproducirEfecto(efectos.gameover);
+                    //reproducirEfecto(efectos.gameover);
                     this.contador_ovnis = 0;
                 }
             }
@@ -163,14 +165,12 @@ class GameLayer extends Layer {
 
         //eje y
         if(controles.moverY > 0){
-            //console.log("mover arriba");
-            this.jugador.moverY(-1);
+                this.jugador.saltar(-16);
         }
         else if(controles.moverY < 0){
             //console.log("mover abajo");
-            this.jugador.moverY(1);
         }else{
-            this.jugador.moverY(0);
+            //this.jugador.moverY(0);
         }
     }
     generarAleatorioAltoPantalla(){

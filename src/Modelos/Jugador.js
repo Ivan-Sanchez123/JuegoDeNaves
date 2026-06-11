@@ -1,13 +1,14 @@
 class Jugador extends Modelo{
     constructor(x,y){
         super(imagenes.jugador , x, y);
-        this.vx = 0;//velocidad x
+        this.vx = 1;//velocidad x
         this.vy = 0;//velocidad y
         this.velocity = 5.0;
         this.orientacion = orientaciones.derecha;
 
         this.cadenciaDisparo = 10;
         this.tiempoDisparo = 0;
+        
 
         this.aIdleDerecha = new Animacion(imagenes.jugador_idle_derecha, this.ancho, this.alto, 6, 8);
         this.aIdleIzquierda = new Animacion(imagenes.jugador_idle_izquierda, this.ancho, this.alto, 6, 8);
@@ -21,6 +22,7 @@ class Jugador extends Modelo{
     }
     actualizar(){
         this.animacion.actualizar();
+        this.en_el_suelo = this.choqueAbajo;
         /*if(this.vx > 0){
             this.animacion = this.aCorriendoDerecha;
             this.orientacion = orientaciones.derecha;
@@ -103,5 +105,11 @@ class Jugador extends Modelo{
     }
     finAnimacionDisparar(){
         this.estado = estados.movimiento;
+    }
+    saltar(fuerza){
+        if(this.en_el_suelo){
+                this.vy = fuerza;
+                this.en_el_suelo = false;
+            }
     }
 }

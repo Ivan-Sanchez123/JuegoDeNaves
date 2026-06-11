@@ -13,7 +13,6 @@ var controles = {};
 function iniciarJuego(){
     //Creamos una instancia de la clase GameLayer
     gameLayer = new GameLayer();
-    gameLayer.iniciar();
     //Actualizamos el juego 50 veces por segundo (50fps)
     setInterval(loop, 1000/50);
 
