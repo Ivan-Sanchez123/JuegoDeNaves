@@ -28,8 +28,8 @@ class GameLayer extends Layer {
         this.en_el_suelo = true;
     }
     actualizar(){
-        this.fondo.actualizar();
         this.espacio.actualizar();
+        this.fondo.actualizar();
         
         for(var j = 0; j < this.enemigos.length; j++){
             if(this.enemigos[j] != null && this.enemigos[j].estado == estados.muerto){
@@ -48,79 +48,110 @@ class GameLayer extends Layer {
             this.enemigosCreacion = 50;
             this.enemigos.push(enemigoNuevo);
         }*/
-        for(let index = 0; index < this.disparosJugador.length; index++){
-            if(this.disparosJugador[index].x > 500){
-                this.disparosJugador.splice(index,1);
-                this.espacio.eliminarCuerpoDinamico(this.disparosJugador[index]);
-                //console.log("Disparo eliminado");
+        // Eliminar disparos sin velocidad
+        for (var i=0; i < this.disparosJugador.length; i++){
+            if ( this.disparosJugador[i] != null &&
+                    this.disparosJugador[i].vx == 0){
+                
+                this.espacio
+                    .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                this.disparosJugador.splice(i, 1);
             }
         }
-        for(let index = 0; index < this.enemigos.length; index++){
-            if(this.enemigos[index].x < -50){
-                this.enemigos.splice(index,1);
-                this.espacio.eliminarCuerpoDinamico(this.enemigos[index]);
-                this.contador_ovnis++;
-                //console.log("OVNI eliminado");
-                if(this.contador_ovnis >= 5){
-                    //console.log("el if va bien");
-                    //this.fondo.cambiarFondo(imagenes.game_over);
-                    this.fondo.vx = 0;
-                    this.fondo.fondoAux = null;
-                    this.fondo.x = this.fondo.ancho / 2;
-                    //this.gameover = true;
-                    this.contador_ovnis = 0;
-                }
-            }
-        }
-        this.jugador.actualizar();
 
-        for(let index = 0; index < this.enemigos.length;index++){
-            this.enemigos[index].actualizar();
+
+        // Enemigos muertos fuera del juego
+        for (var j=0; j < this.enemigos.length; j++){
+            if ( this.enemigos[j] != null &&
+                this.enemigos[j].estado == estados.muerto  ) {
+                this.espacio
+                    .eliminarCuerpoDinamico(this.enemigos[j]);
+                this.enemigos.splice(j, 1);
+                j = j-1;
+            }
         }
-        if (!this.gameover){
-            for(let index = 0; index < this.enemigos.length; index++){
-                if(this.jugador.colisiona(this.enemigos[index])){
-                    this.fondo.vx = 0;
-                    this.fondo.fondoAux = null;
-                    this.fondo.x = this.fondo.ancho / 2;
-                    //this.fondo.cambiarFondo(imagenes.game_over);
-                    //this.gameover = true;
-                    pararMusica();
-                    //reproducirEfecto(efectos.gameover);
-                    this.contador_ovnis = 0;
+        
+        // Eliminar disparos fuera de pantalla
+        for (var i=0; i < this.disparosJugador.length; i++){
+            if ( this.disparosJugador[i] != null &&
+                !this.disparosJugador[i].estaEnPantalla()){
+                this.espacio
+                    .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                this.disparosJugador.splice(i, 1);
+                i=i-1;
+            }
+        }
+
+        this.jugador.actualizar();
+        for (var i=0; i < this.enemigos.length; i++){
+            this.enemigos[i].actualizar();
+        }
+        for (var i=0; i < this.disparosJugador.length; i++) {
+            this.disparosJugador[i].actualizar();
+        }
+
+
+        for (var i=0; i < this.enemigos.length; i++){
+            if ( this.jugador.colisiona(this.enemigos[i])){
+                this.jugador.golpeado();
+                if (this.jugador.vidas <= 0){
+                    this.iniciar();
                 }
             }
         }
-        for(let index = 0; index < this.disparosJugador.length;index++){
-            this.disparosJugador[index].actualizar();
-        }
-        for(let index = 0; index < this.enemigos.length;index++){
-            for(let index2 = 0; index2 < this.disparosJugador.length;index2++){
-                if(this.enemigos[index].colisiona(this.disparosJugador[index2])){
-                    //console.log(this.enemigos[index].colisiona(this.disparosJugador[index2]));
-                    this.ovnis_matados++;
-                    reproducirEfecto(efectos.explosion);
-                    this.ovnis20++;
-                    this.puntos.valor = this.ovnis_matados;
-                    //this.enemigos.splice(index,1);
-                    this.enemigos[index].impactado();
-                    if(this.ovnis20 == 20){
-                        this.estrellas.push(new Fondo(imagenes.icono_puntos, this.posicion[0], this.posicion[1]));
-                        this.posicion[0] += 480 * 0.05;
-                        this.ovnis20 = 0;
-                    }
+        // colisiones , disparoJugador - Enemigo
+        for (var i=0; i < this.disparosJugador.length; i++){
+            for (var j=0; j < this.enemigos.length; j++){
+                if (this.disparosJugador[i] != null &&
+                    this.enemigos[j] != null &&
+                    this.disparosJugador[i].colisiona(this.enemigos[j])) {
                     
-                    this.disparosJugador.splice(index2,1);
-                    this.espacio.eliminarCuerpoDinamico(disparosJugador[index2]);
-                    index --;
-                    index2 --;
+                    this.espacio
+                        .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                    this.disparosJugador.splice(i, 1);
+                    i = i-1;
+
+                    this.enemigos[j].impactado();
+                    this.puntos.valor++;
                 }
             }
-        }
+        }  
+
     }
     dibujar(){
         this.calcularScroll();
         this.fondo.dibujar();
+        for (var i=0; i < this.bloques.length; i++){
+            this.bloques[i].dibujar(this.scrollX);
+        }
+        for (var i=0; i < this.disparosJugador.length; i++) {
+            this.disparosJugador[i].dibujar(this.scrollX);
+        }
+        this.jugador.dibujar(this.scrollX);
+        for (var i=0; i < this.enemigos.length; i++){
+            this.enemigos[i].dibujar(this.scrollX);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /*
 
         for(var i = 0; i < this.bloques.length; i++){
             this.bloques[i].dibujar(this.scrollX);
@@ -138,6 +169,7 @@ class GameLayer extends Layer {
                 this.estrellas[index].dibujar(this.scrollX);
             }
         }
+            */
     }
     procesarControles(){
         //disparar

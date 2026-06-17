@@ -5,6 +5,33 @@ class Espacio{
         this.estaticos = [];
     }
 
+
+    actualizar(){
+    for( var i=0; i < this.dinamicos.length; i++){
+
+        this.dinamicos[i].vy = this.dinamicos[i].vy + this.gravedad;
+
+        if (this.dinamicos[i].vy > 20) {
+            this.dinamicos[i].vy = 20;
+        }
+
+        // reiniciar choques
+        this.dinamicos[i].choqueAbajo = false;
+        
+        // reiniciar fuera
+        this.dinamicos[i].fueraPorDerecha = true;
+        this.dinamicos[i].fueraPorIzquierda = true;
+
+        
+        this.moverDerecha(i);
+        this.moverIzquierda(i);
+        this.moverArriba(i);
+        this.moverAbajo(i);
+    }
+}
+
+
+
     agregarCuerpoDinamico(modelo){
         this.dinamicos.push(modelo);
     }
@@ -23,19 +50,6 @@ class Espacio{
             if(this.estaticos[i] == modelo){
                 this.estaticos.splice(i, 1);
             }
-        }
-    }
-    actualizar(){
-        for(var i = 0; i < this.dinamicos.length; i++){
-            this.dinamicos[i].vy = this.dinamicos[i].vy + this.gravedad;
-            if(this.dinamicos[i].vy > 20){
-                this.dinamicos[i].vy = 20;
-            }
-            this.dinamicos[i].choqueAbajo = false;
-            this.moverDerecha(i);
-            this.moverIzquierda(i);
-            this.moverArriba(i);
-            this.moverAbajo(i); 
         }
     }
 
@@ -116,7 +130,8 @@ moverAbajo(i){
                 && izquierdaDinamico < derechaEstatico
                 && derechaDinamico > izquierdaEstatico ){
 
-   
+
+
                 if (movimientoPosible 
                 		>= arribaEstatico - abajoDinamico ){
                     // La distancia es MENOR que movimiento posible

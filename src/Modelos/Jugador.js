@@ -87,22 +87,24 @@ class Jugador extends Modelo{
     moverY(direccion){
         this.vy = direccion;
     }
+
     disparar(){
-        if(this.tiempoDisparo == 0){
+        if ( this.tiempoDisparo == 0) {
+            // reiniciar Cadencia
             this.estado = estados.disparando;
-            reproducirEfecto(efectos.disparo);
             this.tiempoDisparo = this.cadenciaDisparo;
-            var disparo = new disparo_jugador(this.x + 33,this.y);
-            if(this.orientacion == orientaciones.derecha){
-                    disparo.vx *= 1;
-                }else if(this.orientacion == orientaciones.izquierda){
-                    disparo.vx *= -1;
-                }
+            reproducirEfecto(efectos.disparo);
+        
+            var disparo = new disparo_jugador(this.x, this.y);
+            if ( this.orientacion == orientaciones.izquierda ){
+                disparo.vx = disparo.vx*-1; //invertir
+            }
             return disparo;
-        }else{
+        } else {
             return null;
         }
     }
+
     finAnimacionDisparar(){
         this.estado = estados.movimiento;
     }
