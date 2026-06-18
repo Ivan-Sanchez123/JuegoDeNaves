@@ -117,6 +117,7 @@ class GameLayer extends Layer {
     }
     dibujar(){
         this.calcularScroll();
+        console.log(this.scrollX);
         this.fondo.dibujar();
         for (var i=0; i < this.bloques.length; i++){
             this.bloques[i].dibujar(this.scrollX);
@@ -182,11 +183,11 @@ class GameLayer extends Layer {
         //eje x
         if(controles.moverX > 0){
             //console.log("mover derecha");
-            this.jugador.moverX(2);
+            this.jugador.moverX(3.6);
         }
         else if(controles.moverX < 0){
             //console.log("mover izquierda");
-            this.jugador.moverX(-2);
+            this.jugador.moverX(-3.6);
         }
         else{
             this.jugador.moverX(0);
@@ -217,6 +218,7 @@ class GameLayer extends Layer {
             console.log("Leyendo fichero...");
             var texto = fichero.responseText;
             var lineas = texto.split('\n');
+            this.anchoMapa = (lineas[0].length - 1) * 40;
             console.log("Lineas cogidas...");
             for(var i = 0; i < lineas.length; i++){
                 var linea = lineas[i];
@@ -249,13 +251,22 @@ class GameLayer extends Layer {
                 var enemigo = new Enemigo(x,y);
                 enemigo.y = enemigo.y - enemigo.alto / 2;
                 this.enemigos.push(enemigo);
-                this.espacio.agregarCuerpoDinamico(enemigo);
+                this.espacio.agregarCuerpoEstatico(enemigo);
                 break;
             default:
                 break;
         }
     }
     calcularScroll(){
-        this.scrollX = this.jugador.x - 250;
+        if(this.jugador.x > 480 * 0.3){
+            if(this.jugador.x - this.scrollX < 480 * 0.30){
+                this.scrollX = this.jugador.x - 480 * 0.30;
+            }
+        }
+        if(this.jugador.x < this.anchoMapa - 480 * 0.3){
+            if(this.jugador.x - this.scrollX > 480 * 0.70){
+                this.scrollX = this.jugador.x - 480 * 0.70;
+            }
+        }
     }
 }
