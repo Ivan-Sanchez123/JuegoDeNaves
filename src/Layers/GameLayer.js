@@ -93,10 +93,7 @@ class GameLayer extends Layer {
 
         for (var i=0; i < this.enemigos.length; i++){
             if ( this.jugador.colisiona(this.enemigos[i])){
-                this.jugador.golpeado();
-                if (this.jugador.vidas <= 0){
-                    this.iniciar();
-                }
+                this.iniciar();
             }
         }
         // colisiones , disparoJugador - Enemigo
@@ -185,11 +182,11 @@ class GameLayer extends Layer {
         //eje x
         if(controles.moverX > 0){
             //console.log("mover derecha");
-            this.jugador.moverX(1);
+            this.jugador.moverX(2);
         }
         else if(controles.moverX < 0){
             //console.log("mover izquierda");
-            this.jugador.moverX(-1);
+            this.jugador.moverX(-2);
         }
         else{
             this.jugador.moverX(0);
