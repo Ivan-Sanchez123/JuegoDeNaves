@@ -8,6 +8,7 @@ class Enemigo extends Modelo {
         this.aMorir = new Animacion(imagenes.enemigo_morir, this.ancho, this.alto, 6, 8, this.finAnimacionMorir.bind(this));
         this.vx = 1;
         this.vy = 0;
+        this.vxInteligencia = -1;
     };
     actualizar(){
         this.animacion.actualizar();
@@ -18,6 +19,15 @@ class Enemigo extends Modelo {
             case estados.muriendo:
                 this.animacion = this.aMorir;
                 break;
+        }
+        if(this.estado == estados.movimiento){
+            if(this.vx == 0){
+                this.vxInteligencia = this.vxInteligencia * -1;
+                this.vx = this.vxInteligencia;
+            }
+        }
+        if(this.estado == estados.muriendo){
+            this.vx = 0;
         }
         /*  if(this.x + this.ancho / 2 >= 480 || this.x - this.ancho / 2 <= 0){
                 this.vx = this.vx * -1;  */
