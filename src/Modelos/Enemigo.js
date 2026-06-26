@@ -6,9 +6,8 @@ class Enemigo extends Modelo {
         this.animacion = this.aMover;
         this.estado = estados.movimiento;
         this.aMorir = new Animacion(imagenes.enemigo_morir, this.ancho, this.alto, 6, 8, this.finAnimacionMorir.bind(this));
-        this.vx = -1.5;
+        this.vx = 1;
         this.vy = 0;
-        this.velocity = 2.0;
     };
     actualizar(){
         this.animacion.actualizar();
@@ -30,9 +29,9 @@ class Enemigo extends Modelo {
         scrollX = scrollX || 0;
         this.animacion.dibujar(this.x - scrollX, this.y);
     }
-    dibujar(){
+    /*dibujar(){
         this.animacion.dibujar(this.x, this.y);
-    }
+    }*/
     finAnimacionMorir(){
         this.estado = estados.muerto;
     }

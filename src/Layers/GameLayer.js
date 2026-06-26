@@ -24,7 +24,7 @@ class GameLayer extends Layer {
         this.ovnis20 = 0;
         this.posicion = [480*0.15, 320*0.07];
         this.cargaMapa("res/0.txt");
-        console.log("juego iniciado")
+        console.log("juego iniciado");
         this.en_el_suelo = true;
     }
     actualizar(){
@@ -53,8 +53,7 @@ class GameLayer extends Layer {
             if ( this.disparosJugador[i] != null &&
                     this.disparosJugador[i].vx == 0){
                 
-                this.espacio
-                    .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                this.espacio.eliminarCuerpoDinamico(this.disparosJugador[i]);
                 this.disparosJugador.splice(i, 1);
             }
         }
@@ -64,8 +63,7 @@ class GameLayer extends Layer {
         for (var j=0; j < this.enemigos.length; j++){
             if ( this.enemigos[j] != null &&
                 this.enemigos[j].estado == estados.muerto  ) {
-                this.espacio
-                    .eliminarCuerpoDinamico(this.enemigos[j]);
+                this.espacio.eliminarCuerpoDinamico(this.enemigos[j]);
                 this.enemigos.splice(j, 1);
                 j = j-1;
             }
@@ -75,8 +73,7 @@ class GameLayer extends Layer {
         for (var i=0; i < this.disparosJugador.length; i++){
             if ( this.disparosJugador[i] != null &&
                 !this.disparosJugador[i].estaEnPantalla()){
-                this.espacio
-                    .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                this.espacio.eliminarCuerpoDinamico(this.disparosJugador[i]);
                 this.disparosJugador.splice(i, 1);
                 i=i-1;
             }
@@ -103,8 +100,7 @@ class GameLayer extends Layer {
                     this.enemigos[j] != null &&
                     this.disparosJugador[i].colisiona(this.enemigos[j])) {
                     
-                    this.espacio
-                        .eliminarCuerpoDinamico(this.disparosJugador[i]);
+                    this.espacio.eliminarCuerpoDinamico(this.disparosJugador[i]);
                     this.disparosJugador.splice(i, 1);
                     i = i-1;
 
@@ -251,7 +247,7 @@ class GameLayer extends Layer {
                 var enemigo = new Enemigo(x,y);
                 enemigo.y = enemigo.y - enemigo.alto / 2;
                 this.enemigos.push(enemigo);
-                this.espacio.agregarCuerpoEstatico(enemigo);
+                this.espacio.agregarCuerpoDinamico(enemigo);
                 break;
             default:
                 break;
