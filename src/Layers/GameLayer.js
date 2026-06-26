@@ -255,7 +255,19 @@ class GameLayer extends Layer {
                 break;
         }
     }
-    calcularScroll(){
-        this.scrollX = this.jugador.x - 250;
+calcularScroll(){
+   
+    if ( this.jugador.x > 480 * 0.3) {
+        if (this.jugador.x - this.scrollX < 480 * 0.3) {
+            this.scrollX = this.jugador.x - 480 * 0.3;
+        }
     }
+
+
+    if ( this.jugador.x < this.anchoMapa - 480 * 0.3 ) {
+        if (this.jugador.x - this.scrollX > 480 * 0.7) {
+            this.scrollX = this.jugador.x - 480 * 0.7;
+        }
+    }
+}
 }
